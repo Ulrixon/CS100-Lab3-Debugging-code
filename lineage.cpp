@@ -3,7 +3,7 @@
 #include "personList.h"
 
 int main() {
-    PersonList theList;
+    PersonList theList = PersonList();
 
     theList.addPerson("Bob", "Mark", "Betty");
     theList.addPerson("Jim", "Bob", "Sally");
@@ -15,6 +15,7 @@ int main() {
     theList.printLineage("Kim");
     theList.printLineage("Betty");
 
+    
     return 0;
 } 
 

@@ -11,7 +11,7 @@ class Person{
         int capacity; // capacity of children array
 
     public:
-        Person(const char *name, Person* father, Person* mother);
+        Person(const char *name = "", Person* father = 0, Person* mother = 0);
         ~Person();
 
         const char* getName(){return name;}

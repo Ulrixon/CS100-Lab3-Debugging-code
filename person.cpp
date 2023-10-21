@@ -6,17 +6,23 @@ using std::cout;
 using std::endl;
 
 Person::Person(const char *name_, Person* father_, Person* mother_){
-    name = new char[strlen(name_)];
+    name = new char[strlen(name_)+1];
     strcpy(name, name_);
     father = father_;
     mother = mother_;
     capacity = 1;
     numChildren = 0;
-    children = new Person*[capacity];
+    children = new Person*[capacity]();
 }
 
 Person::~Person(){
-    delete children;
+    delete[] name;
+    //for (int i = 0; i < capacity; i++)
+    //{
+    //    delete children[i];
+    //}
+
+    delete[] children;
 }
 
 void Person::addChild(Person *newChild){
@@ -52,6 +58,7 @@ void Person::printLineage(char dir, int level){
             father->printLineage(dir, level + 1);
         }
     }
+    delete[] temp;
 }
 
 /* helper function to compute the lineage
@@ -66,8 +73,11 @@ char* Person::compute_relation(int level){
     for(int i = 2; i <= level; i++){
         char *temp2 = new char[strlen("great ") + strlen(temp) + 1];
         strcat(strcpy(temp2, "great "), temp);
+        delete[] temp;
         temp = temp2;
+        //delete[] temp2;
     }
+    
     return temp;
 }
 
@@ -75,8 +85,17 @@ char* Person::compute_relation(int level){
  * NOTE: t's type will be a pointer to an array of pointers
  */
 void expand(Person ***t, int *MAX){
-  Person **temp = new Person*[2 * *MAX];
+  Person **temp = new Person*[2 * *MAX]();
+
   memcpy(temp, *t, *MAX * sizeof(**t));
   *MAX *= 2;
+  //for (int i = 0; i < sizeof(*t); i++)
+  //{
+  //    delete *t[i];
+  //}
+
+  delete[] *t;
+  //delete t;
   *t = temp;
+  
 }
